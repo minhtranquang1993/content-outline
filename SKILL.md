@@ -69,13 +69,13 @@ Chưa có review thì task **chưa hoàn tất**.
 
 ### 1.1. Tìm kết quả SERP
 
-Dùng `search_web` để search keyword:
+Dùng `WebSearch` để search keyword:
 - `{keyword}` — kết quả chính
 - `{keyword} câu hỏi thường gặp` — tìm PAA (People Also Ask)
 - `{keyword} [năm hiện tại]` — tìm nội dung mới
 - Nếu keyword có local intent: `{keyword} [thành phố]`
 
-Fetch nội dung top 3–5 URL bằng `read_url_content` để phân tích cấu trúc H2/H3.
+Fetch nội dung top 3–5 URL bằng `WebFetch` để phân tích cấu trúc H2/H3.
 
 ### 1.2. Phân tích SERP
 
@@ -90,7 +90,7 @@ Xác định:
 ### 1.3. Xác định đặc thù nội dung
 
 - **YMYL?** (y tế, tài chính, pháp lý, an toàn) → bắt buộc có trust block
-- **Local intent?** → bắt buộc thêm GEO/local block
+- **Local intent?** → bắt buộc thêm Local block
 - **Cạnh tranh cao?** → tăng độ sâu H3
 
 ---
@@ -130,7 +130,7 @@ H3: Cảm giác trong 24 giờ đầu sau phẫu thuật LASIK
 H3: Khi nào đau mắt sau LASIK là dấu hiệu bất thường? [cần dẫn chứng]
 ```
 
-### 2.4. Block GEO / Local (chỉ khi keyword có local intent)
+### 2.4. Block Local / Địa phương (chỉ khi keyword có local intent)
 
 ```
 H2: [Dịch vụ] tại [khu vực] — Thông tin địa phương
@@ -242,7 +242,7 @@ Tự check 11 mục này, nếu fail → sửa trước khi trả:
 | 5 | Đúng format | Có Keyword, Intent, H1, H2/H3, FAQ, AIO Notes, SEO Meta, nguồn |
 | 6 | AIO Notes | Có Entity definitions và Decision factors |
 | 7 | Evidence tags | Các claim cần nguồn có `[cần dẫn chứng]` |
-| 8 | GEO | Có local block nếu intent là local |
+| 8 | Local | Có local block nếu intent là local |
 | 9 | E-E-A-T | Có trust block nếu là YMYL |
 | 10 | SEO Meta | Slug, title, description đạt chuẩn |
 | 11 | Review | Có điểm số + lý do + gợi ý cải thiện |
