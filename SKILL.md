@@ -6,7 +6,7 @@ description: >
   Trigger khi user nói: "/seo-outline", "viết outline cho keyword", "lên outline seo",
   "lên dàn bài seo", "tạo outline", "tạo dàn bài SEO chuẩn AEO", "outline keyword",
   "dàn bài seo chuẩn", "lên outline deep", "tạo outline cho bài blog", "outline landing page".
-version: 1.0.0
+version: 1.1.0
 tags: [seo, outline, aeo, geo, keyword, serp, dàn-bài, blog, landing-page]
 ---
 
@@ -86,6 +86,16 @@ Xác định:
 - **Cấu trúc H2/H3** của top 1–3 kết quả
 - **Độ sâu trung bình** của đối thủ (số H2/H3)
 - **People Also Ask** và related queries thật sự liên quan
+- **Content gap**: top SERP đang **thiếu** hoặc **trả lời hời hợt** chỗ nào? (câu hỏi bỏ ngỏ, góc nhìn chưa ai làm, số liệu/bảng chưa ai có) → đây là nguyên liệu cho `[điểm khác biệt]` ở Bước 2.4
+
+**Bắt buộc — Sub-intent list (working notes, KHÔNG đưa vào output cuối):** Liệt kê rõ danh sách PAA + sub-intent liên quan thu được ở đây. Danh sách này là căn cứ để QA (mục 12) và review (Bước 3) đối chiếu xem outline đã phủ đủ chưa. Ví dụ:
+```
+[working notes] Sub-intent cần phủ:
+- có đau không (cảm giác lúc mổ)
+- đau bao lâu / hồi phục
+- dấu hiệu bất thường
+- ai không nên mổ
+```
 
 ### 1.3. Xác định đặc thù nội dung
 
@@ -130,7 +140,36 @@ H3: Cảm giác trong 24 giờ đầu sau phẫu thuật LASIK
 H3: Khi nào đau mắt sau LASIK là dấu hiệu bất thường? [cần dẫn chứng]
 ```
 
-### 2.4. Block Local / Địa phương (chỉ khi keyword có local intent)
+### 2.3b. Tag định dạng snippet (AEO)
+
+Với heading (H2 hoặc H3) **thật sự có cơ hội** ăn featured snippet / AI Overview theo SERP — gắn thêm tag chỉ *dạng* câu trả lời để writer nhắm bắn:
+
+`[snippet: đoạn 40–60 từ | list | bảng | định nghĩa | các bước]`
+
+- Chỉ gắn lên heading nhắm snippet, **không** gắn tràn lan mọi heading (giữ outline gọn, tránh nhiễu ở mode `lite`).
+- Đây là chỉ dẫn nhắm bắn, không phải nội dung — vẫn thuần outline.
+
+**Quy ước gộp tag** (một heading có thể mang nhiều tag), thứ tự cố định:
+```
+[điểm khác biệt] → [cần dẫn chứng] → [snippet: ...]
+```
+Ví dụ: `H3: Bảng so sánh chi phí LASIK vs Phakic [điểm khác biệt] [snippet: bảng]`
+
+### 2.4. Điểm khác biệt (chống outline sao chép SERP)
+
+Dựa trên **content gap** tìm ở Bước 1.2, thêm section outline "own" được — thứ top SERP thiếu/làm hời hợt — và gắn tag `[điểm khác biệt]`.
+
+- **Số lượng theo mode (soft floor):** `lite` = 0–1 (chỉ khi có gap rõ ràng; mặc định vẫn bám top SERP); `standard` = 1–2; `deep` = 2+.
+- **Granularity:** mỗi điểm khác biệt là 1 **H2**; riêng `lite` có thể là 1 **H3** nằm dưới H2 sẵn có để không phá budget.
+- **Không có gap khai thác được → bỏ qua, KHÔNG bịa gap.**
+- Nếu điểm khác biệt kéo theo claim thực tế/YMYL → gắn kèm `[cần dẫn chứng]` (theo quy ước thứ tự tag ở 2.3b).
+
+**Ví dụ:**
+```
+H2: So sánh chi phí và thời gian hồi phục LASIK vs Phakic ICL [điểm khác biệt] [snippet: bảng]
+```
+
+### 2.5. Block Local / Địa phương (chỉ khi keyword có local intent)
 
 ```
 H2: [Dịch vụ] tại [khu vực] — Thông tin địa phương
@@ -140,7 +179,7 @@ H2: [Dịch vụ] tại [khu vực] — Thông tin địa phương
   H3: CTA địa phương
 ```
 
-### 2.5. Trust block E-E-A-T (chỉ khi YMYL)
+### 2.6. Trust block E-E-A-T (chỉ khi YMYL)
 
 Outline bắt buộc có ≥ 1 trong số:
 - Khi nào cần gặp chuyên gia
@@ -198,6 +237,13 @@ Review:
   - ...
 ```
 
+### Chú thích tag (dùng trên heading)
+
+- `[cần dẫn chứng]` — heading cần số liệu/nghiên cứu/khuyến cáo chuyên gia hoặc claim YMYL
+- `[điểm khác biệt]` — section khai thác content gap top SERP còn thiếu
+- `[snippet: ...]` — heading nhắm featured snippet/AI Overview; giá trị: `đoạn 40–60 từ | list | bảng | định nghĩa | các bước`
+- Gộp nhiều tag theo thứ tự: `[điểm khác biệt] → [cần dẫn chứng] → [snippet: ...]`
+
 ### SEO Meta Rules
 
 **Slug:**
@@ -220,10 +266,12 @@ Sau khi tạo outline, review ngay trước khi trả output. Tự review bằng
 
 nếu không dùng được model review riêng biệt.
 
-**Focus review vào 3 điểm:**
+**Focus review vào 5 điểm:**
 1. Search intent — outline có match đúng intent không?
-2. AEO/SEO snippet readiness — heading có đủ cụ thể để trigger snippet không?
-3. Tính chuyển đổi — có trust signal, CTA logic không?
+2. AEO/SEO snippet readiness — heading có đủ cụ thể để trigger snippet không? Tag `[snippet: ...]` gắn đúng chỗ có cơ hội không?
+3. Sub-intent coverage — đối chiếu danh sách PAA/sub-intent ghi ở Bước 1.2, xác nhận từng mục đều có heading phủ.
+4. Điểm khác biệt — có ≥ 1 `[điểm khác biệt]` khai thác content gap chưa (trừ `lite` không có gap rõ ràng)? Không bịa gap giả.
+5. Tính chuyển đổi — có trust signal, CTA logic không?
 
 Review không được dài hơn outline.
 
@@ -231,7 +279,7 @@ Review không được dài hơn outline.
 
 ## QA Checklist trước khi trả output
 
-Tự check 11 mục này, nếu fail → sửa trước khi trả:
+Tự check 14 mục này, nếu fail → sửa trước khi trả:
 
 | # | Tiêu chí | Pass khi |
 |---|---|---|
@@ -246,6 +294,9 @@ Tự check 11 mục này, nếu fail → sửa trước khi trả:
 | 9 | E-E-A-T | Có trust block nếu là YMYL |
 | 10 | SEO Meta | Slug, title, description đạt chuẩn |
 | 11 | Review | Có điểm số + lý do + gợi ý cải thiện |
+| 12 | Sub-intent coverage | Mọi PAA/sub-intent liệt kê ở Bước 1.2 đều có heading phủ |
+| 13 | Điểm khác biệt | Có ≥ 1 `[điểm khác biệt]` (trừ `lite` không có gap rõ); không bịa gap |
+| 14 | Snippet tag | Tag `[snippet: ...]` chỉ gắn heading có cơ hội snippet, đúng thứ tự tag |
 
 ---
 
@@ -256,16 +307,15 @@ Keyword chính: mổ cận lasik có đau không
 Intent: informational [non-local]
 
 H1: Mổ cận LASIK có đau không? Cảm giác và lưu ý trước khi phẫu thuật
-H2: Mổ cận LASIK có đau không?
+H2: Mổ cận LASIK có đau không? [snippet: đoạn 40–60 từ]
   H3: Cảm giác trong lúc chiếu laser
   H3: Cảm giác trong 24 giờ đầu sau mổ
 H2: Vì sao một số người thấy cộm hoặc xốn mắt sau LASIK?
   H3: Khô mắt tạm thời sau phẫu thuật [cần dẫn chứng]
   H3: Phản ứng hồi phục bình thường của giác mạc
 H2: Khi nào đau mắt sau LASIK là dấu hiệu cần đi khám?
-  H3: Các dấu hiệu bất thường không nên bỏ qua [cần dẫn chứng]
-H2: Ai phù hợp và không phù hợp để mổ LASIK?
-  H3: Điều kiện độ cận, giác mạc và sức khỏe mắt [cần dẫn chứng]
+  H3: Các dấu hiệu bất thường không nên bỏ qua [cần dẫn chứng] [snippet: list]
+H2: Thang cảm giác đau theo từng mốc thời gian sau LASIK [điểm khác biệt] [cần dẫn chứng] [snippet: bảng]
 H2: FAQ
   H3: Mổ LASIK bao lâu thì nhìn rõ?
   H3: Sau LASIK có bị cận lại không?
@@ -289,8 +339,8 @@ Review:
 - Điểm số: 8.5/10
 - Lý do:
   - Đúng informational intent, có trust block cho chủ đề y tế
-  - Heading đủ cụ thể để bắt snippet và PAA
-  - Có thể tăng chuyển đổi bằng section tư vấn/đặt lịch nếu dùng cho website bệnh viện
+  - Heading đủ cụ thể để bắt snippet và PAA; phủ đủ sub-intent liệt kê ở Bước 1.2
+  - Có 1 điểm khác biệt (thang cảm giác đau theo mốc) top SERP chưa làm
 - Gợi ý 10/10:
   - Thêm local/brand block nếu bài phục vụ dịch vụ LASIK tại TP.HCM
 ```
@@ -301,6 +351,7 @@ Review:
 
 - Không bỏ research nguồn thật — outline không có nguồn là outline không đủ tin cậy
 - Không bỏ review — review là checkpoint quality tự động
-- Không viết outline quá dài nếu mode là `lite` — ưu tiên bám mặt bằng top SERP
+- Với `lite`: ưu tiên bám mặt bằng top SERP, không viết outline quá dài; chỉ thêm tối đa 1 `[điểm khác biệt]` khi có gap rõ ràng
+- Không bịa content gap — không có gap khai thác được thì bám SERP, đừng thêm `[điểm khác biệt]` cho có
 - Chủ đề y tế/tài chính/pháp lý phải có trust signal và tag `[cần dẫn chứng]` đúng chỗ
 - Output phải sạch theo format cố định — writer cầm là dùng được ngay
