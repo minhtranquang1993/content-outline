@@ -2,7 +2,7 @@
 name: seo-outline
 description: >
   Tạo dàn bài SEO chuẩn AEO/GEO cho một keyword bất kỳ — có research SERP thật,
-  phân tích intent, structured output với H1/H2/H3/FAQ/AIO Notes/SEO Meta và auto-review ngay sau khi tạo outline.
+  phân tích intent, structured output với H1/H2/H3/hỏi đáp/AIO Notes/SEO Meta và auto-review ngay sau khi tạo outline.
   Trigger khi user nói: "/seo-outline", "viết outline cho keyword", "lên outline seo",
   "lên dàn bài seo", "tạo outline", "tạo dàn bài SEO chuẩn AEO", "outline keyword",
   "dàn bài seo chuẩn", "lên outline deep", "tạo outline cho bài blog", "outline landing page".
@@ -47,7 +47,7 @@ lên outline deep cho keyword "hướng dẫn chăm sóc mắt sau phẫu thuậ
 
 ## Mode Budget
 
-| Mode | Số H2 | Tổng H3 (gồm FAQ) | FAQ H3 | Dùng khi |
+| Mode | Số H2 | Tổng H3 (gồm hỏi đáp) | H3 hỏi đáp | Dùng khi |
 |---|---:|---:|---:|---|
 | `lite` | 4–6 | 6–12 | 2–3 | Keyword hẹp, Q&A ngắn, cần viết nhanh |
 | `standard` | 6–8 | 12–20 | 3–5 | Cần sâu hơn mặt bằng đối thủ |
@@ -209,7 +209,7 @@ H2: {section}
   H3: {subsection} [cần dẫn chứng]
 H2: {section}
 ...
-H2: FAQ
+H2: {tiêu đề phần hỏi đáp — chọn 1 cụm Việt hóa, xem danh sách bên dưới}
   H3: {câu hỏi 1}
   H3: {câu hỏi 2}
   ...
@@ -236,6 +236,14 @@ Review:
 - Gợi ý 10/10:
   - ...
 ```
+
+### Tiêu đề phần hỏi đáp (Việt hóa — chọn 1 cho tự nhiên)
+
+**Không ghi "FAQ".** Viết bằng tiếng Việt để người đọc không giỏi tiếng Anh vẫn hiểu. Chọn 1 trong các cụm sau, xoay giữa các bài để tránh lặp:
+- Thắc mắc thường gặp
+- Giải đáp thắc mắc thường gặp
+- Câu hỏi thường gặp
+- Những điều thường được hỏi
 
 ### Chú thích tag (dùng trên heading)
 
@@ -283,11 +291,11 @@ Tự check 14 mục này, nếu fail → sửa trước khi trả:
 
 | # | Tiêu chí | Pass khi |
 |---|---|---|
-| 1 | Mode budget | H2/H3/FAQ đúng giới hạn mode |
+| 1 | Mode budget | H2/H3/hỏi đáp đúng giới hạn mode |
 | 2 | Không trùng intent | Mỗi H2 xử lý 1 ý khác nhau |
 | 3 | Heading rõ | Không có heading mơ hồ kiểu "Thông tin thêm" |
 | 4 | Có nguồn thật | Có ít nhất 3 URL research |
-| 5 | Đúng format | Có Keyword, Intent, H1, H2/H3, FAQ, AIO Notes, SEO Meta, nguồn |
+| 5 | Đúng format | Có Keyword, Intent, H1, H2/H3, phần hỏi đáp, AIO Notes, SEO Meta, nguồn |
 | 6 | AIO Notes | Có Entity definitions và Decision factors |
 | 7 | Evidence tags | Các claim cần nguồn có `[cần dẫn chứng]` |
 | 8 | Local | Có local block nếu intent là local |
@@ -316,7 +324,7 @@ H2: Vì sao một số người thấy cộm hoặc xốn mắt sau LASIK?
 H2: Khi nào đau mắt sau LASIK là dấu hiệu cần đi khám?
   H3: Các dấu hiệu bất thường không nên bỏ qua [cần dẫn chứng] [snippet: list]
 H2: Thang cảm giác đau theo từng mốc thời gian sau LASIK [điểm khác biệt] [cần dẫn chứng] [snippet: bảng]
-H2: FAQ
+H2: Thắc mắc thường gặp
   H3: Mổ LASIK bao lâu thì nhìn rõ?
   H3: Sau LASIK có bị cận lại không?
   H3: Mổ LASIK có cần nghỉ làm không?
